@@ -52,11 +52,17 @@ router.put("/:id", (req, res) => {
   }
 });
 
-router.get("/:id", (req, res) => {
+//delete member
+router.delete("/:id", (req, res) => {
   const found = members.some((member) => member.id === parseInt(req.params.id));
 
   if (found) {
-    res.json(members.filter((member) => member.id === parseInt(req.params.id)));
+    res.json({
+      msg: "Member deleted",
+      members: members.filter(
+        (member) => member.id !== parseInt(req.params.id)
+      ),
+    });
   } else {
     res.status(400).json({ msg: "Member not found with that id" });
   }
